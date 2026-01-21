@@ -80,7 +80,7 @@ export function useCategoriesData() {
   }, []);
 
   const refetch = () => {
-    // Re-trigger the effect by toggling a state or simply calling fetchData again
+
     const fetchData = async () => {
       setLoading(true);
       try {

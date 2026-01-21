@@ -103,7 +103,7 @@ export function TransactionDialog({
   };
 
   const formatCurrencyInput = (value: string) => {
-    // Remove non-numeric characters except decimal point
+
     const numericValue = value.replace(/[^\d.]/g, "");
     return numericValue;
   };
@@ -119,7 +119,7 @@ export function TransactionDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
-          {/* Type Selector Buttons */}
+
           <div className="grid grid-cols-2 gap-3 border p-2 rounded-xl border-grayscale-200">
             <button
               type="button"
@@ -149,7 +149,6 @@ export function TransactionDialog({
             </button>
           </div>
 
-          {/* Description */}
           <div className="space-y-2">
             <Label htmlFor="description">Descrição</Label>
             <Input
@@ -161,7 +160,6 @@ export function TransactionDialog({
             />
           </div>
 
-          {/* Date and Amount - Side by Side */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="date">Data</Label>
@@ -197,7 +195,6 @@ export function TransactionDialog({
             </div>
           </div>
 
-          {/* Category */}
           <div className="space-y-2">
             <Label htmlFor="category">Categoria</Label>
             <Select value={categoryId} onValueChange={setCategoryId}>

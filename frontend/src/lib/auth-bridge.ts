@@ -41,10 +41,8 @@ export const authBridge = {
   logout: () => {
     if (typeof window === "undefined") return;
 
-    // Clear the Zustand store state directly
     useAuthStore.getState().logout();
 
-    // Redirect to login page
     window.location.href = "/login";
   },
 };

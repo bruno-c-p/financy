@@ -31,7 +31,7 @@ export class TransactionService {
     userId: string,
     limit?: number,
     offset?: number,
-    filter?: TransactionFilterInput
+    filter?: TransactionFilterInput,
   ) {
     const where: Prisma.TransactionWhereInput = { userId };
 
@@ -79,7 +79,7 @@ export class TransactionService {
   async updateTransaction(
     id: string,
     userId: string,
-    data: UpdateTransactionInput
+    data: UpdateTransactionInput,
   ) {
     await this.findTransaction(id, userId);
 

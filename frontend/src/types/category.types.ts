@@ -171,7 +171,7 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   Luggage,
   Wallet,
   Receipt,
-  // Mapping some generic names in case legacy data uses them
+
   work: Briefcase,
   transport: Car,
   health: HeartPulse,

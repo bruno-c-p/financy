@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Check } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -51,8 +50,7 @@ export function CategoryDialog({
     if (category) {
       setName(category.name);
       setDescription(category.description || "");
-      // Try to find the icon name, otherwise default
-      // This handles case-insensitive matching or full string matches
+
       const matchedIcon = AVAILABLE_ICONS.find(
         (i) => i.name.toLowerCase() === category.icon.toLowerCase(),
       );

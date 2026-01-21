@@ -68,7 +68,7 @@ const authLink = setContext(async (_, { headers }) => {
           useAuthStore.getState().setTokens(newToken, newRefreshToken);
           token = newToken;
         } else {
-          // Refresh failed
+
           authBridge.logout();
           return { headers };
         }

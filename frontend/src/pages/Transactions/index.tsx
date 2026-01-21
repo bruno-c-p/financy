@@ -59,7 +59,6 @@ export function TransactionsPage() {
     useState<Transaction | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Filter states
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
@@ -70,7 +69,6 @@ export function TransactionsPage() {
     new Date().getFullYear(),
   );
 
-  // Build filter object
   const filter: TransactionFilterInput = {};
   if (searchQuery) {
     filter.description = searchQuery;
@@ -177,7 +175,7 @@ export function TransactionsPage() {
   return (
     <Page>
       <div className="space-y-6">
-        {/* Header */}
+        {}
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-grayscale-900">
@@ -196,7 +194,7 @@ export function TransactionsPage() {
           </Button>
         </div>
 
-        {/* Filters */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="space-y-2">
             <label className="text-sm font-medium text-grayscale-700">
@@ -308,7 +306,7 @@ export function TransactionsPage() {
           </div>
         </div>
 
-        {/* Table */}
+        {}
         <div className="bg-white rounded-lg border border-grayscale-200">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -461,7 +459,7 @@ export function TransactionsPage() {
             </table>
           </div>
 
-          {/* Pagination */}
+          {}
           {totalItems > 0 && (
             <div className="px-4 py-3 border-t border-grayscale-200">
               <Pagination

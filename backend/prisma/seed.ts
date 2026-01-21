@@ -51,28 +51,28 @@ async function main() {
           name: "Alimentação",
           description: "Restaurantes, delivery e refeições",
           icon: "Utensils",
-          color: "#cc3629", // Red-ish
+          color: "#cc3629",
           userId: adminUser.id,
         },
         {
           name: "Entretenimento",
           description: "Cinema, jogos e lazer",
           icon: "Ticket",
-          color: "#e0621d", // Orange-ish
+          color: "#e0621d",
           userId: adminUser.id,
         },
         {
           name: "Investimento",
           description: "Aplicações e retornos financeiros",
           icon: "PiggyBank",
-          color: "#2f9e44", // Green-ish
+          color: "#2f9e44",
           userId: adminUser.id,
         },
         {
           name: "Mercado",
           description: "Compras de supermercado e mantimentos",
           icon: "ShoppingCart",
-          color: "#d99006", // Yellow-ish
+          color: "#d99006",
           userId: adminUser.id,
         },
         {
@@ -86,14 +86,14 @@ async function main() {
           name: "Saúde",
           description: "Medicamentos, consultas e exames",
           icon: "Heart",
-          color: "#c9366e", // Pink-ish
+          color: "#c9366e",
           userId: adminUser.id,
         },
         {
           name: "Transporte",
           description: "Gasolina, transporte público e viagens",
           icon: "Car",
-          color: "#3b5bdb", // Blue-ish
+          color: "#3b5bdb",
           userId: adminUser.id,
         },
         {
@@ -112,7 +112,6 @@ async function main() {
     );
   }
 
-  // Get all categories for the admin user
   const categories = await prisma.category.findMany({
     where: { userId: adminUser.id },
   });
@@ -125,24 +124,20 @@ async function main() {
     {} as Record<string, string>,
   );
 
-  // Check if transactions already exist
   const existingTransactionsCount = await prisma.transaction.count({
     where: { userId: adminUser.id },
   });
 
   if (existingTransactionsCount === 0) {
-    // Create mock transactions for the past 3 months
     const now = new Date();
     const transactions = [];
 
-    // Helper function to create a date
     const createDate = (daysAgo: number) => {
       const date = new Date(now);
       date.setDate(date.getDate() - daysAgo);
       return date;
     };
 
-    // November 2025 transactions
     transactions.push(
       {
         description: "Jantar no Restaurante",
@@ -210,7 +205,6 @@ async function main() {
       },
     );
 
-    // December 2025 transactions
     transactions.push(
       {
         description: "Salário Mensal",
@@ -294,7 +288,6 @@ async function main() {
       },
     );
 
-    // January 2026 transactions (current month)
     transactions.push(
       {
         description: "Salário Janeiro",
