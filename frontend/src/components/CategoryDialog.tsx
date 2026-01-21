@@ -11,7 +11,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { AVAILABLE_ICONS, AVAILABLE_COLORS } from "@/types/category.types";
+import {
+  AVAILABLE_ICONS,
+  AVAILABLE_COLORS,
+  CATEGORY_LIST,
+} from "@/types/category.types";
 import { cn } from "@/lib/utils";
 import { Category } from "@/types";
 
@@ -116,29 +120,40 @@ export function CategoryDialog({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
+            <Label className="text-grayscale-500 mt-2">Opcional</Label>
           </div>
 
           <div className="space-y-2">
-            <Label>Opcional</Label>
             <p className="text-sm font-medium mb-2">Ícone</p>
             <div className="grid grid-cols-6 sm:grid-cols-8 gap-2">
               {AVAILABLE_ICONS.map(
-                ({ name: iconName, icon: IconComponent }) => (
-                  <button
-                    key={iconName}
-                    type="button"
-                    onClick={() => setSelectedIcon(iconName)}
-                    className={cn(
-                      "p-2 rounded-md border flex items-center justify-center transition-all hover:bg-muted",
-                      selectedIcon === iconName
-                        ? "border-emerald-600 bg-emerald-50 text-emerald-600 ring-1 ring-emerald-600"
-                        : "border-gray-200 text-gray-500",
-                    )}
-                    title={iconName}
-                  >
-                    <IconComponent className="h-5 w-5" />
-                  </button>
-                ),
+                ({ name: iconName, icon: IconComponent, label }) => {
+                  const isSelected = selectedIcon === iconName;
+                  return (
+                    <button
+                      key={iconName}
+                      type="button"
+                      onClick={() => {
+                        setSelectedIcon(iconName);
+                        const matchingCategory = CATEGORY_LIST.find(
+                          (c) => c.icon === IconComponent,
+                        );
+                        if (matchingCategory) {
+                          setSelectedColor(matchingCategory.defaultColor);
+                        }
+                      }}
+                      className={cn(
+                        "p-3 rounded-xl border-2 flex items-center justify-center transition-all",
+                        isSelected
+                          ? "border-brand-base text-grayscale-600 bg-grayscale-100"
+                          : "border-grayscale-200 text-grayscale-600 hover:border-grayscale-300 hover:bg-grayscale-50",
+                      )}
+                      title={label}
+                    >
+                      <IconComponent className="h-5 w-5" />
+                    </button>
+                  );
+                },
               )}
             </div>
           </div>

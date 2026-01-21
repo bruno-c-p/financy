@@ -50,57 +50,57 @@ async function main() {
         {
           name: "Alimentação",
           description: "Restaurantes, delivery e refeições",
-          icon: "utensils",
-          color: "#3B82F6",
+          icon: "Utensils",
+          color: "#cc3629", // Red-ish
           userId: adminUser.id,
         },
         {
           name: "Entretenimento",
           description: "Cinema, jogos e lazer",
-          icon: "gamepad",
-          color: "#F472B6",
+          icon: "Ticket",
+          color: "#e0621d", // Orange-ish
           userId: adminUser.id,
         },
         {
           name: "Investimento",
           description: "Aplicações e retornos financeiros",
-          icon: "trending-up",
-          color: "#10B981",
+          icon: "PiggyBank",
+          color: "#2f9e44", // Green-ish
           userId: adminUser.id,
         },
         {
           name: "Mercado",
           description: "Compras de supermercado e mantimentos",
-          icon: "shopping-cart",
-          color: "#F59E0B",
+          icon: "ShoppingCart",
+          color: "#d99006", // Yellow-ish
           userId: adminUser.id,
         },
         {
           name: "Salário",
           description: "Renda mensal e bonificações",
-          icon: "wallet",
-          color: "#22C55E",
+          icon: "Wallet",
+          color: "#2f9e44",
           userId: adminUser.id,
         },
         {
           name: "Saúde",
           description: "Medicamentos, consultas e exames",
-          icon: "heart-pulse",
-          color: "#EF4444",
+          icon: "Heart",
+          color: "#c9366e", // Pink-ish
           userId: adminUser.id,
         },
         {
           name: "Transporte",
           description: "Gasolina, transporte público e viagens",
-          icon: "car",
-          color: "#A78BFA",
+          icon: "Car",
+          color: "#3b5bdb", // Blue-ish
           userId: adminUser.id,
         },
         {
           name: "Utilidades",
           description: "Energia, água, internet e telefone",
-          icon: "tools",
-          color: "#FBBF24",
+          icon: "Receipt",
+          color: "#d99006",
           userId: adminUser.id,
         },
       ],
@@ -108,7 +108,7 @@ async function main() {
     console.log("✅ Default categories created for admin user.");
   } else {
     console.log(
-      "✅ Categories already exist for admin user. Skipping creation."
+      "✅ Categories already exist for admin user. Skipping creation.",
     );
   }
 

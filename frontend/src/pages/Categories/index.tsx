@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Tag, ArrowUpDown } from "lucide-react";
 import { useCategoriesData } from "@/hooks/useCategoriesData";
-import { useCategoriesGrid } from "@/hooks/useCategoriesGrid";
 import { Button } from "@/components/ui/button";
 import { StatCard } from "@/components/StatCard";
 import { CategoryCard } from "@/components/CategoryCard";
@@ -22,7 +21,6 @@ export function CategoriesPage() {
     loading: loadingCategories,
     refetch,
   } = useCategoriesData();
-  const categoriesGrid = useCategoriesGrid(categories);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
@@ -136,7 +134,10 @@ export function CategoriesPage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div
+        className="grid gap-4"
+        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(284px, 1fr))" }}
+      >
         {loadingCategories && categories.length === 0 ? (
           <p className="text-sm text-grayscale-500">Carregando categorias...</p>
         ) : categories.length === 0 ? (
@@ -144,16 +145,14 @@ export function CategoriesPage() {
             Nenhuma categoria cadastrada
           </p>
         ) : (
-          categoriesGrid.map((row) =>
-            row.map((cat) => (
-              <CategoryCard
-                key={cat.id}
-                category={cat}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-            )),
-          )
+          categories.map((category) => (
+            <CategoryCard
+              key={category.id}
+              category={category}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          ))
         )}
       </div>
 

@@ -16,64 +16,65 @@ export function CategoryCard({
   onDelete,
 }: CategoryCardProps) {
   return (
-    <Card className="border-grayscale-200">
-      <CardContent className="p-6">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3">
-            <div
-              className="h-9 w-9 rounded-md flex items-center justify-center text-white text-sm font-medium"
-              style={{ backgroundColor: category.color }}
-              title={category.name}
-            >
-              {(() => {
-                const IconComponent =
-                  ICON_MAP[category.icon] ||
-                  ICON_MAP[category.icon.toLowerCase()] ||
-                  Tag;
-                return <IconComponent className="h-5 w-5" />;
-              })()}
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-grayscale-900">
-                {category.name}
-              </h3>
-              {category.description && (
-                <p className="text-sm text-grayscale-500">
-                  {category.description}
-                </p>
-              )}
-            </div>
+    <Card className="border-grayscale-200 h-full">
+      <CardContent className="p-6 flex flex-col h-full">
+        <div className="flex items-start justify-between mb-6">
+          <div
+            className="h-10 w-10 shrink-0 rounded-lg flex items-center justify-center"
+            style={{
+              backgroundColor: `${category.color}20`,
+              color: category.color,
+            }}
+            title={category.name}
+          >
+            {(() => {
+              const IconComponent =
+                ICON_MAP[category.icon] ||
+                ICON_MAP[category.icon.toLowerCase()] ||
+                Tag;
+              return <IconComponent className="h-4 w-4" />;
+            })()}
           </div>
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
-              className="h-9 w-9 p-0 hover:bg-grayscale-100"
-              title="Editar"
-              onClick={() => onEdit?.(category)}
-            >
-              <Pencil className="h-4 w-4 text-grayscale-600" />
-            </Button>
-            <Button
-              variant="ghost"
-              className="h-9 w-9 p-0 hover:bg-grayscale-100"
+              className="h-10 w-10 p-0 rounded-xl border border-grayscale-300 hover:bg-grayscale-200 transition-colors"
               title="Excluir"
               onClick={() => onDelete?.(category)}
             >
-              <Trash2 className="h-4 w-4 text-grayscale-600" />
+              <Trash2 className="h-4 w-4 text-red-500" />
+            </Button>
+            <Button
+              variant="ghost"
+              className="h-10 w-10 p-0 rounded-xl border border-grayscale-300 hover:bg-grayscale-200 transition-colors"
+              title="Editar"
+              onClick={() => onEdit?.(category)}
+            >
+              <Pencil className="h-4 w-4 text-grayscale-700" />
             </Button>
           </div>
         </div>
-        <div className="mt-4 flex items-center justify-between">
+
+        <div className="mb-6 flex-grow">
+          <h3 className="font-semibold text-grayscale-800 mb-1">
+            {category.name}
+          </h3>
+          <p className="text-sm text-grayscale-600 leading-relaxed">
+            {category.description || "Restaurantes, delivery e refeições"}
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between mt-auto">
           <span
-            className="text-xs font-medium px-2 py-1 rounded-full"
+            className="text-sm font-medium px-3 py-1 rounded-full"
             style={{
-              backgroundColor: `${category.color}22`,
+              backgroundColor: `${category.color}18`,
               color: category.color,
             }}
           >
             {category.name}
           </span>
-          <span className="text-xs text-grayscale-500">
+          <span className="text-sm text-grayscale-600">
             {category.transactionCount ?? 0} itens
           </span>
         </div>
