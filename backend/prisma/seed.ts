@@ -112,6 +112,253 @@ async function main() {
     );
   }
 
+  // Get all categories for the admin user
+  const categories = await prisma.category.findMany({
+    where: { userId: adminUser.id },
+  });
+
+  const categoryMap = categories.reduce(
+    (acc, cat) => {
+      acc[cat.name] = cat.id;
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
+
+  // Check if transactions already exist
+  const existingTransactionsCount = await prisma.transaction.count({
+    where: { userId: adminUser.id },
+  });
+
+  if (existingTransactionsCount === 0) {
+    // Create mock transactions for the past 3 months
+    const now = new Date();
+    const transactions = [];
+
+    // Helper function to create a date
+    const createDate = (daysAgo: number) => {
+      const date = new Date(now);
+      date.setDate(date.getDate() - daysAgo);
+      return date;
+    };
+
+    // November 2025 transactions
+    transactions.push(
+      {
+        description: "Jantar no Restaurante",
+        amount: 89.5,
+        date: createDate(60),
+        type: "EXPENSE",
+        categoryId: categoryMap["Alimentação"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Posto de Gasolina",
+        amount: 100.0,
+        date: createDate(59),
+        type: "EXPENSE",
+        categoryId: categoryMap["Transporte"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Compras no Mercado",
+        amount: 156.8,
+        date: createDate(58),
+        type: "EXPENSE",
+        categoryId: categoryMap["Mercado"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Retorno de Investimento",
+        amount: 340.25,
+        date: createDate(56),
+        type: "INCOME",
+        categoryId: categoryMap["Investimento"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Aluguel",
+        amount: 1700.0,
+        date: createDate(56),
+        type: "EXPENSE",
+        categoryId: categoryMap["Utilidades"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Freelance",
+        amount: 2500.0,
+        date: createDate(54),
+        type: "INCOME",
+        categoryId: categoryMap["Salário"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Compras Jantar",
+        amount: 150.0,
+        date: createDate(52),
+        type: "EXPENSE",
+        categoryId: categoryMap["Mercado"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Cinema",
+        amount: 88.0,
+        date: createDate(48),
+        type: "EXPENSE",
+        categoryId: categoryMap["Entretenimento"],
+        userId: adminUser.id,
+      },
+    );
+
+    // December 2025 transactions
+    transactions.push(
+      {
+        description: "Salário Mensal",
+        amount: 5000.0,
+        date: createDate(35),
+        type: "INCOME",
+        categoryId: categoryMap["Salário"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Conta de Luz",
+        amount: 180.5,
+        date: createDate(34),
+        type: "EXPENSE",
+        categoryId: categoryMap["Utilidades"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Internet",
+        amount: 99.9,
+        date: createDate(33),
+        type: "EXPENSE",
+        categoryId: categoryMap["Utilidades"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Supermercado",
+        amount: 320.75,
+        date: createDate(32),
+        type: "EXPENSE",
+        categoryId: categoryMap["Mercado"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Farmácia",
+        amount: 125.3,
+        date: createDate(30),
+        type: "EXPENSE",
+        categoryId: categoryMap["Saúde"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Uber",
+        amount: 45.8,
+        date: createDate(28),
+        type: "EXPENSE",
+        categoryId: categoryMap["Transporte"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Restaurante",
+        amount: 156.0,
+        date: createDate(26),
+        type: "EXPENSE",
+        categoryId: categoryMap["Alimentação"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Netflix",
+        amount: 55.9,
+        date: createDate(25),
+        type: "EXPENSE",
+        categoryId: categoryMap["Entretenimento"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Gasolina",
+        amount: 220.0,
+        date: createDate(23),
+        type: "EXPENSE",
+        categoryId: categoryMap["Transporte"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Investimento em Ações",
+        amount: 1000.0,
+        date: createDate(20),
+        type: "EXPENSE",
+        categoryId: categoryMap["Investimento"],
+        userId: adminUser.id,
+      },
+    );
+
+    // January 2026 transactions (current month)
+    transactions.push(
+      {
+        description: "Salário Janeiro",
+        amount: 5000.0,
+        date: createDate(5),
+        type: "INCOME",
+        categoryId: categoryMap["Salário"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Aluguel Janeiro",
+        amount: 1700.0,
+        date: createDate(4),
+        type: "EXPENSE",
+        categoryId: categoryMap["Utilidades"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Mercado Semanal",
+        amount: 280.4,
+        date: createDate(3),
+        type: "EXPENSE",
+        categoryId: categoryMap["Mercado"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Jantar Especial",
+        amount: 198.5,
+        date: createDate(2),
+        type: "EXPENSE",
+        categoryId: categoryMap["Alimentação"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Consulta Médica",
+        amount: 250.0,
+        date: createDate(1),
+        type: "EXPENSE",
+        categoryId: categoryMap["Saúde"],
+        userId: adminUser.id,
+      },
+      {
+        description: "Combustível",
+        amount: 180.0,
+        date: new Date(),
+        type: "EXPENSE",
+        categoryId: categoryMap["Transporte"],
+        userId: adminUser.id,
+      },
+    );
+
+    await prisma.transaction.createMany({
+      data: transactions,
+    });
+
+    console.log(
+      `✅ Created ${transactions.length} mock transactions for admin user.`,
+    );
+  } else {
+    console.log(
+      "✅ Transactions already exist for admin user. Skipping creation.",
+    );
+  }
+
   console.log("✨ Seed completed!");
 }
 

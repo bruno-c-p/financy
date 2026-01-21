@@ -131,6 +131,10 @@ export function CategoriesPage() {
           icon={getMostUsedIcon()}
           value={mostUsedCategory?.name || "Nenhuma"}
           label="Categoria mais utilizada"
+          iconBackgroundColor={
+            mostUsedCategory?.color ? `${mostUsedCategory.color}20` : undefined
+          }
+          customIconColor={mostUsedCategory?.color}
         />
       </div>
 

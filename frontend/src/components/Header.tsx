@@ -27,7 +27,7 @@ export function Header() {
             Dashboard
           </span>
           <Link
-            to="/"
+            to="/transactions"
             className={`text-sm ${
               isTransactionsPage
                 ? "text-brand-base font-semibold"

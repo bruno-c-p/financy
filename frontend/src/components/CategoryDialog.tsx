@@ -143,7 +143,7 @@ export function CategoryDialog({
                         }
                       }}
                       className={cn(
-                        "p-3 rounded-xl border-2 flex items-center justify-center transition-all",
+                        "p-3 rounded-lg border flex items-center justify-center transition-all",
                         isSelected
                           ? "border-brand-base text-grayscale-600 bg-grayscale-100"
                           : "border-grayscale-200 text-grayscale-600 hover:border-grayscale-300 hover:bg-grayscale-50",
@@ -160,27 +160,21 @@ export function CategoryDialog({
 
           <div className="space-y-2">
             <p className="text-sm font-medium mb-2">Cor</p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex gap-4">
               {AVAILABLE_COLORS.map((color) => (
                 <button
                   key={color}
                   type="button"
                   onClick={() => setSelectedColor(color)}
                   className={cn(
-                    "w-8 h-8 rounded-md transition-all relative",
+                    "w-full h-[30px] rounded-lg transition-all relative ring-1 ring-offset-4 ring-grayscale-300",
                     selectedColor === color
-                      ? "ring-2 ring-offset-2 ring-gray-400"
-                      : "hover:scale-110",
+                      ? "ring-brand-base"
+                      : "hover:scale-105",
                   )}
                   style={{ backgroundColor: color }}
                   title={color}
-                >
-                  {selectedColor === color && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Check className="h-4 w-4 text-white" />
-                    </div>
-                  )}
-                </button>
+                ></button>
               ))}
             </div>
           </div>

@@ -8,6 +8,8 @@ interface StatCardProps {
   label: string;
   className?: string;
   iconColor?: string;
+  iconBackgroundColor?: string;
+  customIconColor?: string;
 }
 
 export function StatCard({
@@ -16,12 +18,25 @@ export function StatCard({
   label,
   className,
   iconColor = "text-grayscale-700",
+  iconBackgroundColor,
+  customIconColor,
 }: StatCardProps) {
   return (
     <Card className={cn("border-grayscale-200", className)}>
       <CardContent className="p-6">
         <div className="flex items-start gap-3">
-          <Icon className={cn("size-8", iconColor)} />
+          {iconBackgroundColor && customIconColor ? (
+            <div
+              className="h-10 w-10 shrink-0 rounded-lg flex items-center justify-center"
+              style={{
+                color: customIconColor,
+              }}
+            >
+              <Icon className="h-8 w-8" />
+            </div>
+          ) : (
+            <Icon className={cn("size-8", iconColor)} />
+          )}
           <div>
             <p className="text-[28px] font-semibold text-grayscale-900">
               {value}

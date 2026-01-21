@@ -33,3 +33,45 @@ export interface Category {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export enum TransactionType {
+  INCOME = "INCOME",
+  EXPENSE = "EXPENSE",
+}
+
+export interface Transaction {
+  id: string;
+  description?: string;
+  amount: number;
+  date: string;
+  type: TransactionType;
+  categoryId?: string;
+  category?: Category;
+  userId: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CreateTransactionInput {
+  description?: string;
+  amount: number;
+  date: string;
+  type: TransactionType;
+  categoryId?: string;
+}
+
+export interface UpdateTransactionInput {
+  description?: string;
+  amount?: number;
+  date?: string;
+  type?: TransactionType;
+  categoryId?: string;
+}
+
+export interface TransactionFilterInput {
+  description?: string;
+  type?: TransactionType;
+  categoryId?: string;
+  startDate?: string;
+  endDate?: string;
+}
