@@ -5,6 +5,7 @@ import { Signup } from "./pages/Auth/Signup";
 import { ProfilePage } from "./pages/Profile";
 import { CategoriesPage } from "./pages/Categories";
 import { TransactionsPage } from "./pages/Transactions";
+import { DashboardPage } from "./pages/Dashboard";
 import { useAuthStore } from "./stores/auth";
 import { Toaster } from "@/components/ui/sonner";
 import { isTokenExpired } from "@/lib/auth-bridge";
@@ -54,7 +55,17 @@ function App() {
           element={
             <ProtectedRoute>
               <Layout>
-                <Navigate to="/transactions" replace />
+                <Navigate to="/dashboard" replace />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <DashboardPage />
               </Layout>
             </ProtectedRoute>
           }

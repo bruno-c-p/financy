@@ -6,6 +6,8 @@ export function Header() {
   const { user, isAuthenticated } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
+  const isDashboardPage =
+    location.pathname === "/" || location.pathname === "/dashboard";
   const isTransactionsPage = location.pathname.startsWith("/transactions");
   const isCategoriesPage = location.pathname.startsWith("/categories");
 
@@ -23,9 +25,20 @@ export function Header() {
         </div>
 
         <nav className="flex items-center gap-10">
-          <span className="text-sm font-normal text-grayscale-500 cursor-pointer hover:text-grayscale-800">
-            Dashboard
-          </span>
+          <Link
+            to="/dashboard"
+            className={`text-sm ${
+              isDashboardPage
+                ? "text-brand-base font-semibold"
+                : "text-grayscale-500"
+            }`}
+          >
+            <span
+              className={`${isDashboardPage ? "" : "hover:text-grayscale-800"}`}
+            >
+              Dashboard
+            </span>
+          </Link>
           <Link
             to="/transactions"
             className={`text-sm ${

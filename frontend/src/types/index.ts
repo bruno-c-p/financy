@@ -75,3 +75,9 @@ export interface TransactionFilterInput {
   startDate?: string;
   endDate?: string;
 }
+
+export interface DashboardStats {
+  totalBalance: number;
+  totalIncome: number;
+  totalExpense: number;
+}
