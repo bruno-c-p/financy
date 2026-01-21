@@ -26,8 +26,8 @@ export const LIST_TRANSACTIONS = gql`
 `;
 
 export const COUNT_TRANSACTIONS = gql`
-  query CountTransactions {
-    countTransactions
+  query CountTransactions($filter: TransactionFilterInput) {
+    countTransactions(filter: $filter)
   }
 `;
 

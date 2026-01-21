@@ -87,7 +87,7 @@ export function TransactionsPage() {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   const {
-    data: { transactions, categories },
+    data: { transactions, categories, totalCount },
     loading: loadingTransactions,
     refetch,
   } = useTransactionsData(filter, ITEMS_PER_PAGE, offset);
@@ -150,7 +150,7 @@ export function TransactionsPage() {
     }
   };
 
-  const totalItems = transactions.length;
+  const totalItems = totalCount;
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
   const formatCurrency = (value: number) => {
@@ -174,8 +174,7 @@ export function TransactionsPage() {
 
   return (
     <Page>
-      <div className="space-y-6">
-        {}
+      <div className="space-y-8">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-grayscale-900">
@@ -187,15 +186,14 @@ export function TransactionsPage() {
           </div>
           <Button
             onClick={handleCreateTransaction}
-            className="bg-emerald-700 hover:bg-emerald-800 text-white"
+            className="bg-brand-base hover:bg-brand-dark text-white"
           >
             <Plus className="h-4 w-4 mr-2" />
             Nova transação
           </Button>
         </div>
 
-        {}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-neutral-white border border-grayscale-200 rounded-xl pt-5 px-6 pb-6">
           <div className="space-y-2">
             <label className="text-sm font-medium text-grayscale-700">
               Buscar
@@ -209,7 +207,7 @@ export function TransactionsPage() {
                   setSearchQuery(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="pl-10"
+                className="pl-10 h-[44px]"
               />
             </div>
           </div>
@@ -306,7 +304,6 @@ export function TransactionsPage() {
           </div>
         </div>
 
-        {}
         <div className="bg-white rounded-lg border border-grayscale-200">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -459,7 +456,6 @@ export function TransactionsPage() {
             </table>
           </div>
 
-          {}
           {totalItems > 0 && (
             <div className="px-4 py-3 border-t border-grayscale-200">
               <Pagination

@@ -25,7 +25,7 @@ export class TransactionResolver {
   @Mutation(() => TransactionModel)
   async createTransaction(
     @Arg("data", () => CreateTransactionInput) data: CreateTransactionInput,
-    @Ctx() ctx: GraphqlContext
+    @Ctx() ctx: GraphqlContext,
   ): Promise<TransactionModel> {
     return this.transactionService.createTransaction(ctx.user, data);
   }
@@ -34,7 +34,7 @@ export class TransactionResolver {
   async updateTransaction(
     @Arg("id", () => String) id: string,
     @Arg("data", () => UpdateTransactionInput) data: UpdateTransactionInput,
-    @Ctx() ctx: GraphqlContext
+    @Ctx() ctx: GraphqlContext,
   ): Promise<TransactionModel> {
     return this.transactionService.updateTransaction(id, ctx.user, data);
   }
@@ -42,7 +42,7 @@ export class TransactionResolver {
   @Mutation(() => Boolean)
   async deleteTransaction(
     @Arg("id", () => String) id: string,
-    @Ctx() ctx: GraphqlContext
+    @Ctx() ctx: GraphqlContext,
   ): Promise<boolean> {
     return this.transactionService.deleteTransaction(id, ctx.user);
   }
@@ -50,7 +50,7 @@ export class TransactionResolver {
   @Query(() => TransactionModel)
   async getTransaction(
     @Arg("id", () => String) id: string,
-    @Ctx() ctx: GraphqlContext
+    @Ctx() ctx: GraphqlContext,
   ): Promise<TransactionModel> {
     return this.transactionService.findTransaction(id, ctx.user);
   }
@@ -61,18 +61,22 @@ export class TransactionResolver {
     @Arg("limit", () => Int, { nullable: true }) limit?: number,
     @Arg("offset", () => Int, { nullable: true }) offset?: number,
     @Arg("filter", () => TransactionFilterInput, { nullable: true })
-    filter?: TransactionFilterInput
+    filter?: TransactionFilterInput,
   ): Promise<TransactionModel[]> {
     return this.transactionService.listTransactions(
       ctx.user,
       limit,
       offset,
-      filter
+      filter,
     );
   }
 
   @Query(() => Number)
-  async countTransactions(@Ctx() ctx: GraphqlContext): Promise<number> {
-    return this.transactionService.countTransactions(ctx.user);
+  async countTransactions(
+    @Ctx() ctx: GraphqlContext,
+    @Arg("filter", () => TransactionFilterInput, { nullable: true })
+    filter?: TransactionFilterInput,
+  ): Promise<number> {
+    return this.transactionService.countTransactions(ctx.user, filter);
   }
 }

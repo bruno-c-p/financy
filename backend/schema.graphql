@@ -82,7 +82,7 @@ type Mutation {
 
 type Query {
   countCategories: Float!
-  countTransactions: Float!
+  countTransactions(filter: TransactionFilterInput): Float!
   dashboardStats: DashboardStats!
   getCategory(id: String!): CategoryModel!
   getTransaction(id: String!): TransactionModel!

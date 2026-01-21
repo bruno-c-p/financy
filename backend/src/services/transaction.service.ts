@@ -113,9 +113,28 @@ export class TransactionService {
     return true;
   }
 
-  async countTransactions(userId: string) {
+  async countTransactions(userId: string, filter?: TransactionFilterInput) {
+    const where: Prisma.TransactionWhereInput = { userId };
+
+    if (filter) {
+      if (filter.description) {
+        where.description = { contains: filter.description };
+      }
+      if (filter.type) {
+        where.type = filter.type;
+      }
+      if (filter.categoryId) {
+        where.categoryId = filter.categoryId;
+      }
+      if (filter.startDate || filter.endDate) {
+        where.date = {};
+        if (filter.startDate) where.date.gte = filter.startDate;
+        if (filter.endDate) where.date.lte = filter.endDate;
+      }
+    }
+
     return prismaClient.transaction.count({
-      where: { userId },
+      where,
     });
   }
 }
