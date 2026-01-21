@@ -78,6 +78,7 @@ export function ProfilePage() {
             type="submit"
             className="w-full h-11 bg-brand-base hover:bg-brand-dark text-neutral-white font-medium"
             disabled={loading}
+            onClick={handleSave}
           >
                 {loading ? "Salvando..." : "Salvar alterações"}
               </Button>

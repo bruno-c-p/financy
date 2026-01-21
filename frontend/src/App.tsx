@@ -10,6 +10,7 @@ import { useAuthStore } from "./stores/auth";
 import { Toaster } from "@/components/ui/sonner";
 import { isTokenExpired } from "@/lib/auth-bridge";
 import { useEffect } from "react";
+import { VibeKanbanWebCompanion } from "vibe-kanban-web-companion";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -102,6 +103,7 @@ function App() {
         />
       </Routes>
       <Toaster />
+      <VibeKanbanWebCompanion />
     </>
   );
 }

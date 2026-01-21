@@ -32,6 +32,7 @@
     "tailwindcss": "^3.4.14",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2",
+    "vibe-kanban-web-companion": "^0.0.5",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
