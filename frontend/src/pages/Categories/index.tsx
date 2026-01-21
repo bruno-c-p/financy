@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Tag, ArrowUpDown } from "lucide-react";
 import { useCategoriesData } from "@/hooks/useCategoriesData";
 import { Button } from "@/components/ui/button";
-import { StatCard } from "@/components/StatCard";
+import { StatCard } from "@/components/FinancialCards";
 import { CategoryCard } from "@/components/CategoryCard";
 import { CategoryDialog } from "@/components/CategoryDialog";
 import { ICON_MAP } from "@/types/category.types";
@@ -98,7 +98,7 @@ export function CategoriesPage() {
   };
 
   return (
-    <>
+    <div className="container">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-grayscale-800">Categorias</h1>
@@ -166,6 +166,6 @@ export function CategoriesPage() {
         category={editingCategory}
         onSave={handleSave}
       />
-    </>
+    </div>
   );
 }

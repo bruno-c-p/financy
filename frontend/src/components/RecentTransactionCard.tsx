@@ -31,7 +31,7 @@ export function RecentTransactionCard({
 
   return (
     <div
-      className="flex items-center gap-4 py-3 cursor-pointer hover:bg-grayscale-50 px-2 rounded-lg transition-colors"
+      className="flex px-6 items-center gap-4 h-[80px] cursor-pointer hover:bg-grayscale-50 transition-colors border-b border-grayscale-200"
       onClick={onClick}
     >
       <div
@@ -72,12 +72,20 @@ export function RecentTransactionCard({
       )}
 
       <div className="flex items-center gap-1">
-        <span
-          className={`font-semibold whitespace-nowrap ${
-            isIncome ? "text-green-base" : "text-red-base"
-          }`}
-        >
+        <span className="font-semibold whitespace-nowrap flex items-center gap-1">
           {isIncome ? "+" : "-"} {formattedAmount}
+          <span
+            className={`text-xs font-medium px-2 py-1 rounded-full whitespace-nowrap`}
+            style={{
+              color: isIncome ? "#16A34A" : "#EF4444",
+            }}
+          >
+            {isIncome ? (
+              <ArrowUpCircle size={16} />
+            ) : (
+              <ArrowDownCircle size={16} />
+            )}
+          </span>
         </span>
       </div>
     </div>

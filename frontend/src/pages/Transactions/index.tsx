@@ -174,7 +174,7 @@ export function TransactionsPage() {
 
   return (
     <Page>
-      <div className="space-y-8">
+      <div className="space-y-8 container">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-grayscale-900">
