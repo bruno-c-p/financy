@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { apolloClient } from "@/lib/graphql/apollo";
+import { CircleArrowDown, CircleArrowUp } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -20,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { Transaction, TransactionType, Category } from "@/types";
 import { LIST_CATEGORIES } from "@/lib/graphql/queries/Categories";
+import { cn } from "@/lib/utils";
 
 interface TransactionDialogProps {
   open: boolean;
@@ -44,7 +46,7 @@ export function TransactionDialog({
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
   const [type, setType] = useState<TransactionType>(TransactionType.EXPENSE);
-  const [categoryId, setCategoryId] = useState<string>("");
+  const [categoryId, setCategoryId] = useState<string>("none");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
 
@@ -69,13 +71,13 @@ export function TransactionDialog({
       setAmount(transaction.amount.toString());
       setDate(transaction.date.split("T")[0]);
       setType(transaction.type);
-      setCategoryId(transaction.categoryId || "");
+      setCategoryId(transaction.categoryId || "none");
     } else {
       setDescription("");
       setAmount("");
       setDate(new Date().toISOString().split("T")[0]);
       setType(TransactionType.EXPENSE);
-      setCategoryId("");
+      setCategoryId("none");
     }
   }, [transaction, open]);
 
@@ -90,7 +92,7 @@ export function TransactionDialog({
         amount: parseFloat(amount),
         date: new Date(date).toISOString(),
         type,
-        categoryId: categoryId || undefined,
+        categoryId: categoryId === "none" ? undefined : categoryId,
       });
       onOpenChange(false);
     } catch (error) {
@@ -100,6 +102,12 @@ export function TransactionDialog({
     }
   };
 
+  const formatCurrencyInput = (value: string) => {
+    // Remove non-numeric characters except decimal point
+    const numericValue = value.replace(/[^\d.]/g, "");
+    return numericValue;
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
@@ -107,70 +115,97 @@ export function TransactionDialog({
           <DialogTitle>
             {transaction ? "Editar transação" : "Nova transação"}
           </DialogTitle>
-          <DialogDescription>
-            Gerencie suas transações financeiras
-          </DialogDescription>
+          <DialogDescription>Registre sua despesa ou receita</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
+          {/* Type Selector Buttons */}
+          <div className="grid grid-cols-2 gap-3 border p-2 rounded-xl border-grayscale-200">
+            <button
+              type="button"
+              onClick={() => setType(TransactionType.EXPENSE)}
+              className={cn(
+                "flex items-center justify-center gap-2 py-3 px-4 rounded-xl border transition-all font-medium",
+                type === TransactionType.EXPENSE
+                  ? "border-red-500 bg-grayscale-100 text-grayscale-800"
+                  : "border-grayscale-200 bg-white text-grayscale-600 hover:border-grayscale-300",
+              )}
+            >
+              <CircleArrowDown className="h-5 w-5 text-red-base" />
+              Despesa
+            </button>
+            <button
+              type="button"
+              onClick={() => setType(TransactionType.INCOME)}
+              className={cn(
+                "flex items-center justify-center gap-2 py-3 px-4 rounded-xl border transition-all font-medium",
+                type === TransactionType.INCOME
+                  ? "border-brand-base bg-grayscale-100 text-grayscale-800"
+                  : "border-grayscale-200 bg-white text-grayscale-600 hover:border-grayscale-300",
+              )}
+            >
+              <CircleArrowUp className="h-5 w-5 text-brand-base" />
+              Receita
+            </button>
+          </div>
+
+          {/* Description */}
           <div className="space-y-2">
             <Label htmlFor="description">Descrição</Label>
             <Input
               id="description"
-              placeholder="Ex. Jantar no Restaurante"
+              placeholder="Ex. Almoço no restaurante"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              className="text-base"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="amount">Valor</Label>
-            <Input
-              id="amount"
-              type="number"
-              step="0.01"
-              placeholder="0.00"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              required
-            />
+          {/* Date and Amount - Side by Side */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="date">Data</Label>
+              <Input
+                id="date"
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+                className="text-base"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="amount">Valor</Label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-grayscale-600 font-medium">
+                  R$
+                </span>
+                <Input
+                  id="amount"
+                  type="number"
+                  step="0.01"
+                  placeholder="0,00"
+                  value={amount}
+                  onChange={(e) =>
+                    setAmount(formatCurrencyInput(e.target.value))
+                  }
+                  required
+                  className="pl-12 text-base"
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="date">Data</Label>
-            <Input
-              id="date"
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="type">Tipo</Label>
-            <Select
-              value={type}
-              onValueChange={(value) => setType(value as TransactionType)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione o tipo" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={TransactionType.INCOME}>Entrada</SelectItem>
-                <SelectItem value={TransactionType.EXPENSE}>Saída</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
+          {/* Category */}
           <div className="space-y-2">
             <Label htmlFor="category">Categoria</Label>
             <Select value={categoryId} onValueChange={setCategoryId}>
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione uma categoria" />
+              <SelectTrigger className="text-base">
+                <SelectValue placeholder="Selecione" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Nenhuma</SelectItem>
+                <SelectItem value="none">Nenhuma</SelectItem>
                 {categories.map((category: Category) => (
                   <SelectItem key={category.id} value={category.id}>
                     {category.name}
@@ -183,7 +218,7 @@ export function TransactionDialog({
           <DialogFooter>
             <Button
               type="submit"
-              className="w-full bg-emerald-700 hover:bg-emerald-800 text-white"
+              className="w-full bg-emerald-700 hover:bg-emerald-800 text-white py-6 text-base font-semibold"
               disabled={loading}
             >
               {loading ? "Salvando..." : "Salvar"}
