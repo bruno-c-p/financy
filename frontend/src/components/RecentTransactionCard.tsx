@@ -40,13 +40,13 @@ export function RecentTransactionCard({
           backgroundColor: transaction.category
             ? `${transaction.category.color}20`
             : isIncome
-              ? "#22c55e20"
-              : "#ef444420",
+              ? "#16A34A20"
+              : "#EF444420",
           color: transaction.category
             ? transaction.category.color
             : isIncome
-              ? "#22c55e"
-              : "#ef4444",
+              ? "#16A34A"
+              : "#EF4444",
         }}
       >
         <IconComponent className="h-4 w-4" />
@@ -74,7 +74,7 @@ export function RecentTransactionCard({
       <div className="flex items-center gap-1">
         <span
           className={`font-semibold whitespace-nowrap ${
-            isIncome ? "text-green-600" : "text-red-600"
+            isIncome ? "text-green-base" : "text-red-base"
           }`}
         >
           {isIncome ? "+" : "-"} {formattedAmount}

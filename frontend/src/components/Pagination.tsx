@@ -95,7 +95,7 @@ export function Pagination({
               onClick={() => onPageChange(page as number)}
               className={`h-8 w-8 ${
                 currentPage === page
-                  ? "bg-primary text-white"
+                  ? "bg-primary text-neutral-white"
                   : "hover:bg-grayscale-100"
               }`}
             >

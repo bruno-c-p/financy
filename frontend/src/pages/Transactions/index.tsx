@@ -186,7 +186,7 @@ export function TransactionsPage() {
           </div>
           <Button
             onClick={handleCreateTransaction}
-            className="bg-brand-base hover:bg-brand-dark text-white"
+            className="bg-brand-base hover:bg-brand-dark text-neutral-white"
           >
             <Plus className="h-4 w-4 mr-2" />
             Nova transação
@@ -304,7 +304,7 @@ export function TransactionsPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg border border-grayscale-200">
+        <div className="bg-neutral-white rounded-lg border border-grayscale-200">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -403,8 +403,8 @@ export function TransactionsPage() {
                           <span
                             className={`inline-flex items-center gap-1 text-sm font-medium ${
                               transaction.type === TransactionType.INCOME
-                                ? "text-green-600"
-                                : "text-red-600"
+                                ? "text-green-base"
+                                : "text-red-base"
                             }`}
                           >
                             {transaction.type === TransactionType.INCOME ? (
@@ -436,7 +436,7 @@ export function TransactionsPage() {
                                 handleDeleteTransaction(transaction.id)
                               }
                             >
-                              <Trash2 className="h-4 w-4 text-red-500" />
+                              <Trash2 className="h-4 w-4 text-feedback-danger" />
                             </Button>
                             <Button
                               variant="ghost"

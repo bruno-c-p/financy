@@ -42,7 +42,7 @@ export function CategoryCard({
               title="Excluir"
               onClick={() => onDelete?.(category)}
             >
-              <Trash2 className="h-4 w-4 text-red-500" />
+              <Trash2 className="h-4 w-4 text-feedback-danger" />
             </Button>
             <Button
               variant="ghost"

@@ -127,8 +127,8 @@ export function TransactionDialog({
               className={cn(
                 "flex items-center justify-center gap-2 py-3 px-4 rounded-xl border transition-all font-medium",
                 type === TransactionType.EXPENSE
-                  ? "border-red-500 bg-grayscale-100 text-grayscale-800"
-                  : "border-grayscale-200 bg-white text-grayscale-600 hover:border-grayscale-300",
+                  ? "border-feedback-danger bg-grayscale-100 text-grayscale-800"
+                  : "border-grayscale-200 bg-neutral-white text-grayscale-600 hover:border-grayscale-300",
               )}
             >
               <CircleArrowDown className="h-5 w-5 text-red-base" />
@@ -141,7 +141,7 @@ export function TransactionDialog({
                 "flex items-center justify-center gap-2 py-3 px-4 rounded-xl border transition-all font-medium",
                 type === TransactionType.INCOME
                   ? "border-brand-base bg-grayscale-100 text-grayscale-800"
-                  : "border-grayscale-200 bg-white text-grayscale-600 hover:border-grayscale-300",
+                  : "border-grayscale-200 bg-neutral-white text-grayscale-600 hover:border-grayscale-300",
               )}
             >
               <CircleArrowUp className="h-5 w-5 text-brand-base" />
@@ -215,7 +215,7 @@ export function TransactionDialog({
           <DialogFooter>
             <Button
               type="submit"
-              className="w-full bg-emerald-700 hover:bg-emerald-800 text-white py-6 text-base font-semibold"
+              className="w-full bg-brand-base hover:bg-brand-dark text-neutral-white py-6 text-base font-semibold"
               disabled={loading}
             >
               {loading ? "Salvando..." : "Salvar"}

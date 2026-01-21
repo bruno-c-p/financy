@@ -180,7 +180,7 @@ export function CategoryDialog({
           <DialogFooter>
             <Button
               type="submit"
-              className="w-full bg-emerald-700 hover:bg-emerald-800 text-white"
+              className="w-full bg-brand-base hover:bg-brand-dark text-neutral-white"
               disabled={loading}
             >
               {loading ? "Salvando..." : "Salvar"}

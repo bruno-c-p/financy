@@ -74,11 +74,11 @@ export function ProfilePage() {
             </div>
 
             <div className="pt-2 space-y-3">
-              <Button
-                className="w-full h-11 bg-brand-base hover:bg-brand-dark text-white font-medium"
-                onClick={handleSave}
-                disabled={loading}
-              >
+          <Button
+            type="submit"
+            className="w-full h-11 bg-brand-base hover:bg-brand-dark text-neutral-white font-medium"
+            disabled={loading}
+          >
                 {loading ? "Salvando..." : "Salvar alterações"}
               </Button>
 

@@ -18,8 +18,8 @@ export function Header() {
   if (!isAuthenticated) return null;
 
   return (
-    <header className="w-full bg-white border-b border-grayscale-200 sticky top-0 z-50">
-      <div className="px-8 h-20 flex items-center justify-between">
+    <header className="w-full bg-neutral-white border-b border-grayscale-200 sticky top-0 z-50">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center">
           <img src="/logo.svg" alt="Financy" className="h-6" />
         </div>
