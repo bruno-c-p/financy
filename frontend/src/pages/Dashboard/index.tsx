@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useDashboardData } from "@/hooks/useDashboardData";
 import { apolloClient } from "@/lib/graphql/apollo";
 import { CREATE_TRANSACTION } from "@/lib/graphql/mutations/TransactionMutations";
-import { Plus } from "lucide-react";
+import { Plus, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { TransactionDialog } from "@/components/TransactionDialog";
@@ -63,9 +63,29 @@ export function DashboardPage() {
     <Page>
       <div className="space-y-6 container">
         <FinancialCards
-          totalAmount={dashboardStats?.totalBalance || 0}
-          monthlyIncome={monthlyIncome}
-          monthlyExpense={monthlyExpense}
+          cards={[
+            {
+              icon: Wallet,
+              value: dashboardStats?.totalBalance ?? 0,
+              label: "SALDO TOTAL",
+              iconColor: "text-purple-600",
+              formatCurrency: true,
+            },
+            {
+              icon: TrendingUp,
+              value: monthlyIncome,
+              label: "RECEITAS DO MÊS",
+              iconColor: "text-green-600",
+              formatCurrency: true,
+            },
+            {
+              icon: TrendingDown,
+              value: monthlyExpense,
+              label: "DESPESAS DO MÊS",
+              iconColor: "text-red-600",
+              formatCurrency: true,
+            },
+          ]}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Tag, ArrowUpDown } from "lucide-react";
 import { useCategoriesData } from "@/hooks/useCategoriesData";
 import { Button } from "@/components/ui/button";
-import { StatCard } from "@/components/FinancialCards";
+import { FinancialCards } from "@/components/FinancialCards";
 import { CategoryCard } from "@/components/CategoryCard";
 import { CategoryDialog } from "@/components/CategoryDialog";
 import { ICON_MAP } from "@/types/category.types";
@@ -115,26 +115,30 @@ export function CategoriesPage() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <StatCard
-          icon={Tag}
-          value={totalCategories}
-          label="Total de categorias"
-        />
-        <StatCard
-          icon={ArrowUpDown}
-          iconColor="text-purple-base"
-          value={totalTransactions}
-          label="Total de transações"
-        />
-        <StatCard
-          icon={getMostUsedIcon()}
-          value={mostUsedCategory?.name || "Nenhuma"}
-          label="Categoria mais utilizada"
-          iconBackgroundColor={
-            mostUsedCategory?.color ? `${mostUsedCategory.color}20` : undefined
-          }
-          customIconColor={mostUsedCategory?.color}
+      <div className="mb-8">
+        <FinancialCards
+          cards={[
+            {
+              icon: Tag,
+              value: totalCategories,
+              label: "Total de categorias",
+            },
+            {
+              icon: ArrowUpDown,
+              iconColor: "text-purple-base",
+              value: totalTransactions,
+              label: "Total de transações",
+            },
+            {
+              icon: getMostUsedIcon(),
+              value: mostUsedCategory?.name || "Nenhuma",
+              label: "Categoria mais utilizada",
+              iconBackgroundColor: mostUsedCategory?.color
+                ? `${mostUsedCategory.color}20`
+                : undefined,
+              customIconColor: mostUsedCategory?.color,
+            },
+          ]}
         />
       </div>
 
